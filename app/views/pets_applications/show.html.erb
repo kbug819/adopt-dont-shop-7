@@ -1,12 +1,15 @@
+<section class="applicant_information">
 <h1><%= @applicant.name %></h1>
 <h3><%= @applicant.street_address %> years old</h3>
 <h3><%= @applicant.city %></h3>
 <h3><%= @applicant.state %></h3>
 <h3><%= @applicant.zip_code %></h3>
 <h3><%= @applicant.description %></h3>
+<h4><%= @application.status %></h4>
+</section>
 
 
-<section>
+<section class="search">
 <% if @application.status == "In Progress" %>
 <h2>Add a Pet to this Application</h2>
 <%= form_with url: "/pets_applications/#{@application.id}", method: :get, data: { turbo: false } do |form| %>
@@ -15,15 +18,15 @@
 <%= form.submit "Search" %>
 <% end %>
 </section>
+
+<section class='searched_pets_submit'>
 <% @searched_pets.each do |pet| %>
   <%= pet.name %><%= form_with url: "/pets_applications/#{@application.id}?pet=#{pet.id}", method: :patch, data: { turbo: false } do |form| %>  
-  
   <%= form.submit "Adopt this pet?" %>
+      <% end %>
+    <% end %>
   <% end %>
-  
-  <% end %>
-  <% end %>
-  
+
   <h3>Pet you would like to adopt:</h3>
   <% @pets.each do |pet| %>
     <a href="/pets/<%= pet.id %>"><%= pet.name %></a>
@@ -34,4 +37,4 @@
     <%= form.submit "Submit Application" %>
   <% end %>
 <% end %>
-<h4><%= @application.status %></h4>
+</section>
